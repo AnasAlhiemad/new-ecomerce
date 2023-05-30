@@ -21,7 +21,7 @@ class SendCodePasswordConfirmation extends Mailable implements ShouldQueue
 
     public function build()
     {
-        return $this->markdown('emails.send-code-reset-password');
+        return $this->markdown('emails.send-code-password-confirmation');
     }
 
 

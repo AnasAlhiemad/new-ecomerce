@@ -2,32 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\sub_Category;
 use Illuminate\Http\Request;
-use Validator;
-class SubCategoryController extends Controller
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendCodeResetPassword;
+use App\Models\ResetCodePassword;
+use App\Models\User;
+class ResetPassword extends Controller
 {
-    public function __construct()
+    public function resetPassword(Request $request)
     {
-        $this->middleware('auth:api');
-    }
+        $request->validate([
+            'code' => 'required|string|exists:reset_code_passwords',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        // find the code
+        $passwordReset = ResetCodePassword::firstWhere('code', $request->code);
 
-    public function get_all_SubCategory(){
-        $Sub_Category=sub_Category::all();
-        return response()->json($Sub_Category);
-    }
-    public function Sub_Category_Product(){
-        $Sub_Category=sub_Category::with('products')->get();
-         return response()->json($Sub_Category);
-    }
-    public function Find_IdSubCategory($id){
-        $Sub_Category=sub_Category::with('products')
-        ->where('id',$id)->get();
-        return response()->json($Sub_Category);
-    }
-    public function Find_NameSubCategory($name){
-        $Sub_Category=sub_Category::with('products')
-        ->where('sub_category',$name)->get();
-        return response()->json($Sub_Category);
+        // check if it does not expired: the time is one hour
+        if ($passwordReset->created_at > now()->addHour()) {
+            $passwordReset->delete();
+            return response(['message' => trans('passwords.code_is_expire')], 422);
+        }
+
+        // find user's email
+        $user = User::firstWhere('email', $passwordReset->email);
+
+        // update user password
+        $user->update($request->only('bcrypt($request->password)'));
+
+        // delete current code
+        $passwordReset->delete();
+
+        return response(['message' =>'password has been successfully reset'], 200);
     }
 }
