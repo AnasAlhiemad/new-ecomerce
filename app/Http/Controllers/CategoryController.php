@@ -6,7 +6,7 @@ use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\User;
-use App\Models\sub_Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Validator;
 

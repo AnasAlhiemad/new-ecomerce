@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Category;
-use App\Models\sub_Category;
+use App\Models\SubCategory;
 use App\Models\Product;
 use App\Models\Image;
 use App\Http\Controllers\ImageController;
@@ -39,7 +39,8 @@ if($validator->fails())
 $user = User::where('id',Auth::id())->firstOrFail();
 $categories=Category::all();
 $categ_isExist = false;
-$sub_categories=sub_Category::all();
+$sub_categories=SubCategory::all();
+
 $sub_isExist=false;
 
 foreach($categories as $category)
@@ -87,7 +88,10 @@ return response()->json([
                          ]);
     }
     }
-$new_sub_category=sub_Category::create([
+   
+
+
+$new_sub_category=SubCategory::create([
     'sub_category'=>$request->sub_category,
     'category_id'=>$old_categoryId,
                                        ]);
@@ -134,7 +138,7 @@ $new_category=Category::create([
     'category_name'=>$request->category_name,
                                ]);
 $new_category_id=$new_category->id;
-$new_sub_category=sub_Category::create([
+$new_sub_category=SubCategory::create([
     'sub_category'=>$request->sub_category,
     'category_id'=> $new_category_id,
                                       ]);

@@ -6,7 +6,7 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class sub_Category extends Model
+class SubCategory extends Model
 {
     use HasFactory;
     protected $table = "sub_categories";

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\sub_Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Validator;
 class SubCategoryController extends Controller

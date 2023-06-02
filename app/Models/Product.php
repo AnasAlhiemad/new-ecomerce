@@ -5,7 +5,7 @@ use App\Models\User;
 use App\Models\Cart;
 use App\Models\Favorite;
 use App\Models\Cart_Order;
-use App\Models\sub_Category;
+use App\Models\SubCategory;
 use App\Models\Image;
 use App\Models\Rating;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
