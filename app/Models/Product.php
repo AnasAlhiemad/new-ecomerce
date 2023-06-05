@@ -31,7 +31,7 @@ class Product extends Model
         $this->save();
     }
     public function user() {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function subcategory() {
@@ -57,6 +57,10 @@ class Product extends Model
     public function ratings()
     {
     return $this->hasMany(Rating::class, 'product_id');
+    }
+    public function reviews()
+    {
+    return $this->hasMany(Review::class,'product_id');
     }
 
 

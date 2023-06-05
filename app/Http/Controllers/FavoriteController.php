@@ -7,7 +7,8 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class FavoritController extends Controller
+
+class FavoriteController extends Controller
 {
 
     public function __construct()
@@ -28,7 +29,7 @@ class FavoritController extends Controller
     }
     public function get_myFavorite()
     {
-        $myFavorit=Favorite::with('product')->get();
+        $myFavorit=Favorite::with('product.image','product.ratings','product.reviews')->where('user_id',Auth::id())->get();
         return response()->json($myFavorit);
     }
 

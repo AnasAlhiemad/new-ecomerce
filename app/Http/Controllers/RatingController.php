@@ -6,36 +6,42 @@ use App\Models\Rating;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
+use Validator;
+use Auth;
 use GuzzleHttp\Promise\Create;
 use App\Http\Controllers\Model;
 
 class RatingController extends Controller
 {
 
-    public function addrating(Request $request,$id,Rating $rating,Product $product,User $user)
+    public function addrating(Request $request,$id)
     {
-        $product=Product::find($id);
-        $user=auth()->user();
-        $request->validate([
-            'rate' =>['integer','required'],
-            'review'=>['string']
-        ]);
-        Rating::add($rating,$product);
-        $user->save;
-        return response()->json([
-            'success' => '1',
-            'message' => 'Rated successfully',
+        $validator =validator::make($request->all(),[
+            'rate'=>'required|integer',
+                                               ]);
+          if($validator->fails())
+          {
+           return response()->json($validator->errors()->toJson(), 422);
+          }
+
+    $rate=Rating::create([
+     'rate' => $request->rate,
+     'product_id'=> $id,
+     'user_id'=>Auth::id(),
+                         ]);
+     return response()->json([
+        'success' => '1',
+        'message' => 'Rated successfully',
         ], 200);
     }
 
-    public function avgrate(Rating $rate)
+    public function getRate($id)
         {
-            $average= Rating::avg('rate');
- //           $average->get();
+            $average= Rating::where('product_id',$id)->avg('rate');
             return response()->json([
-                'success' => '1',
+
                 'average' =>$average,
-                'message' => 'Average rate',
+             
             ], 200);
              /*      foreach($rate as $rate)
             {
@@ -44,27 +50,20 @@ class RatingController extends Controller
             $avgrate=$avg/$user;
             }
 */
-//            $rate=Rating::with('rate')->get();
+//     $rate=Rating::with('rate') - > get( ) ; ;
         }
 
 
-    public function update(Request $request, Rating $rate,$id)
+    public function update(Request $request,$id)
     {
-     //   $id = auth()->product()->id;
-        $product=Product::find($id);
-        $user=auth()->user();
-        $input = $request->validate([
-            'rate' =>['integer','required'],
-            'review'=>['string']
-        ]);
 
-        $rate->rate = $request->rate;
-        // $average= Rating::avg('rate');
-        $rate->update($input);
+         $rate=Rating::where('product_id',$id)->update([
+            'rate' => $request->rate,
+         ]);
+
         return response()->json([
             'success' => '1',
-            'rate' => $rate,
-            // 'average_rate' => $average,
+
             'message'=>'rate updated successfully',
         ], 200);
     }
@@ -82,18 +81,14 @@ class RatingController extends Controller
             'data' => $rating,
         ], 200);
     }
-    public function destroy(Rating $rate,$id,Product $product,User $user)
+    public function delete($id)
     {
-        $product=Product::find($id);
-        $user=auth()->user();
-        if($product){
-        $rate->delete();
-        $user->save;
+        $rate=Rating::where('product_id',$id)->delete();
         return response()->json([
             'success' => '1',
             'message'=>'rate removed successfully',
         ], 200);
-        }
+
     }
 
 }

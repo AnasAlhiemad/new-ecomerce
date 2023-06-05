@@ -13,20 +13,36 @@ class SubCategoryController extends Controller
     }
 
     public function get_all_SubCategory(){
-        $Sub_Category=sub_Category::all();
+        $Sub_Category=SubCategory::with('products.user',
+        'products.image',
+        'products.reviews',
+        'products.ratings',
+        'products.user')->get();
         return response()->json($Sub_Category);
     }
     public function Sub_Category_Product(){
-        $Sub_Category=sub_Category::with('products')->get();
+        $Sub_Category=SubCategory::with('products.user',
+        'products.image',
+        'products.reviews',
+        'products.ratings',
+        'products.user')->get();
          return response()->json($Sub_Category);
     }
     public function Find_IdSubCategory($id){
-        $Sub_Category=sub_Category::with('products')
+        $Sub_Category=SubCategory::with('products.user',
+        'products.image',
+        'products.reviews',
+        'products.ratings',
+        'products.user')
         ->where('id',$id)->get();
         return response()->json($Sub_Category);
     }
     public function Find_NameSubCategory($name){
-        $Sub_Category=sub_Category::with('products')
+        $Sub_Category=SubCategory::with('products.user',
+        'products.image',
+        'products.reviews',
+        'products.ratings',
+        'products.user')
         ->where('sub_category',$name)->get();
         return response()->json($Sub_Category);
     }

@@ -6,13 +6,14 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
-use App\Http\Controllers\FavoritController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CartOrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\CodeCheck;
 use App\Http\Controllers\ForgotPassword;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ReviewController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -57,9 +58,9 @@ use App\Http\Controllers\RatingController;
     Route::get('/Find_NameSubCategory/{name}',[SubCategoryController::class,'Find_NameSubCategory']);
                #################### favorit  ####################
 
-    Route::post('/addFavorite/{id}',[FavoritController::class,'addFavorite']);
-    Route::post('/delete_favorite/{IdFavorite}',[FavoritController::class,'delete_favorite']);
-    Route::get('/get_myFavorite',[FavoritController::class,'get_myFavorite']);
+    Route::post('/addFavorite/{id}',[FavoriteController::class,'addFavorite']);
+    Route::post('/delete_favorite/{IdFavorite}',[FavoriteController::class,'delete_favorite']);
+    Route::get('/get_myFavorite',[FavoriteController::class,'get_myFavorite']);
 
                 #####################CART#################
     Route::post('/CreateCart',[CartController::class,'CreateCart']);
@@ -67,8 +68,14 @@ use App\Http\Controllers\RatingController;
     Route::post('/addOrder/{product_id}',[CartOrderController::class,'addOrder']);
 
                 ###################  Rating    ###############
-    Route::post('/addrating',[RateController::class,'addrating']);
-    Route::get('/avgrate',[RatingController::class,'avgrate']);
-    Route::post('/update',[RatingController::class,'update']);
+    Route::post('/addrating/{id}',[RatingController::class,'addrating']);
+    Route::get('/getRate/{id}',[RatingController::class,'getRate']);
+    Route::post('/update/{id}',[RatingController::class,'update']);
     Route::get('/myratings',[RatingController::class,'myratings']);
-    Route::post('/destroy',[RatingController::class,'destroy']);
+    Route::post('/delete/{id}',[RatingController::class,'delete']);
+
+            ###################  Rating    ###############
+    Route::post('/addreview/{id}',[ReviewController::class,'addreview']);
+    Route::post('/update/{id}',[ReviewController::class,'update']);
+    Route::post('/delete/{id}',[ReviewController::class,'delete']);
+    Route::get('/getReview/{id}',[ReviewController::class,'getReview']);

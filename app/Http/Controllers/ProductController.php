@@ -88,7 +88,7 @@ return response()->json([
                          ]);
     }
     }
-   
+
 
 
 $new_sub_category=SubCategory::create([
@@ -178,7 +178,7 @@ return response()->json([
 
 public function getAllProduct()
 {
-  $product=Product::with('image')->get();
+  $product=Product::with('image','ratings','reviews')->where('user_id',Auth::id())->get();
   return response()->json($product);
 }
 
@@ -187,18 +187,20 @@ public function getAllProduct()
      */
 public function searshProduct($name)
 {
-  $product=Product::where('product_name',$name)->whith('image')->get();
+  $product=Product::with('image','ratings','reviews')->where('product_name',$name)->get();
   return response()->json($product);
 }
 
 public function product_Id_searsh($productId)
 {
-  $product = Product::where('id',$productId)->with('image')->firstOrFail();
+  $product = Product::with('image','ratings','reviews')->where('id',$productId)->firstOrFail();
+  $rate=new RatingController();
+   $rate_product=$rate-> getRate($productId);
   $views= $product->views;
   $product->update([
     'views' => $views + 1,
                    ]);
-   return response()->json($product);
+   return response()->json([$product, $rate_product]);
         //with('product.image')->
 }
 
@@ -207,6 +209,8 @@ public function UpdateProduct(Request $request,$productId)
     $validator = Validator::make($request->all(), [
      'product_name' => 'required|string|between:2,100',
      'price_product'=>'required|numeric',
+     'description'=>'required|string',
+     'count'=>'required|integer',
                                                   ]);
 if ($validator->fails())
 {
@@ -216,6 +220,8 @@ if ($validator->fails())
 $data= Product::find($productId)->update([
     'product_name' => $request->product_name,
     'price_product'=>$request->price_product,
+    'description'=>$request->description,
+    'count'=>$request->count,
                                           ]);
 $images=$request->list_images;
 $input=[];
@@ -239,7 +245,7 @@ return response()->json(['message'=> 'done']);
     }
 public function deleteProduct($productId)
     {
-        $data =Product::find($productId)->Image()->delete();
+       // $data =Product::find($productId)->Image()->delete();
         $data =Product::find($productId)->delete();
         return response()->json(['message' => 'true']);
 

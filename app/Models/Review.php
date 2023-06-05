@@ -6,19 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Product;
-class Rating extends Model
+class Review extends Model
 {
     use HasFactory;
-    protected $table = "ratings";
+    protected $table = "reviews";
     protected $fillable =
     [
         'user_id',
         'product_id',
-        'rate',
-      //  'review',
+        'reviews',
     ];
-
-
     public function product()
     {
         return $this->belongsTo(Product::class,'product_id');
