@@ -71,7 +71,7 @@ $images=$request->list_images;
      $image1=$image2['image'];
      $image_name=time().$image1->getClientOriginalName();
      $image1->move(public_path('upload'),$image_name);
-     $path="public/upload/$image_name";
+     $path="upload/$image_name";
      $input[$i1]=$path;
 
      $image=Image::Create([
@@ -115,7 +115,7 @@ $i1=0;$i2=0;
       $image1=$image2['image'];
       $image_name=time().$image1->getClientOriginalName();
       $image1->move(public_path('upload'),$image_name);
-      $path="public/upload/$image_name";
+      $path="upload/$image_name";
       $input[$i1]=$path;
       $image=Image::Create([
         'image'=>$input[$i1],
@@ -159,7 +159,7 @@ $i1=0;$i2=0;
 $image1=$image2['image'];
 $image_name=time().$image1->getClientOriginalName();
 $image1->move(public_path('upload'),$image_name);
-$path="public/upload/$image_name";
+$path="upload/$image_name";
 $input[$i1]=$path;
 $image=Image::Create([
     'image'=>$input[$i1],
@@ -193,7 +193,7 @@ public function searshProduct($name)
 
 public function product_Id_searsh($productId)
 {
-  $product = Product::with('image','ratings.user','reviews.user')->where('id',$productId)->firstOrFail();
+  $product = Product::with('image','ratings.user','reviews')->where('id',$productId)->firstOrFail();
   $rate=new RatingController();
    $rate_product=$rate-> getRate($productId);
   $views= $product->views;
@@ -231,7 +231,7 @@ $i1=0;$i2=0;
     $image1=$image2['image'];
     $image_name=time().$image1->getClientOriginalName();
     $image1->move(public_path('upload'),$image_name);
-    $path="public/upload/$image_name";
+    $path="upload/$image_name";
     $input[$i1]=$path;
     $data= Product::find($productId)->Image()->update([
         'image'=>$input[$i1],
