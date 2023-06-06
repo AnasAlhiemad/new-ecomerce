@@ -114,6 +114,11 @@ class CategoryController extends Controller
         return $user;
       }
      }
+ public function deleteCategory($CatgoryId)
+{
+    $data = Category::find($CatgoryId)->delete();
+    return response()->json($data);
+}
 }
 
 // $x=[1,2,4];
