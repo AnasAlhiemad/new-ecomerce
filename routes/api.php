@@ -14,6 +14,7 @@ use App\Http\Controllers\CodeCheck;
 use App\Http\Controllers\ForgotPassword;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ReviewController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,6 +26,8 @@ use App\Http\Controllers\ReviewController;
 |
 */
 
+    Route::get('/search/{name}', [CategoryController::class, 'search']);
+
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('password/email',[ForgotPassword::class,'forgotPassword']);
     Route::post('/password/code/check',[CodeCheck::class,'codeCheck']);
@@ -33,6 +36,7 @@ use App\Http\Controllers\ReviewController;
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
+    Route::get('/userAccunt/{id}', [AuthController::class, 'userAccunt']);
 
               ##############PRODUCT#######################
     Route::post('/addproduct',[ProductController::class,'add_product']);
