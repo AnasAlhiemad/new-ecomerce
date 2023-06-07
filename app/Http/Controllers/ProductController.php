@@ -178,7 +178,12 @@ return response()->json([
 
 public function getAllProduct()
 {
-  $product=Product::with('image','ratings.user','reviews.user')->where('user_id',Auth::id())->get();
+  $product=Product::with('subcategory.category',
+  'image',
+  'user',
+  'ratings.user',
+  'reviews.user',
+)->where('user_id',Auth::id())->get();
   return response()->json($product);
 }
 
@@ -187,13 +192,32 @@ public function getAllProduct()
      */
 public function searshProduct($name)
 {
-  $product=Product::with('image','ratings.user','reviews.user')->where('product_name',$name)->get();
-  return response()->json($product);
+    $product = Product::with('subcategory.category',
+    'image',
+    'user',
+    'ratings.user',
+    'reviews.user',
+)
+->where('product_name',$name)->firstOrFail();
+$productId=$product->id;
+$rate=new RatingController();
+$rate_product=$rate-> getRate($productId);
+$views= $product->views;
+$product->update([
+'views' => $views + 1,
+               ]);
+return response()->json([$product, $rate_product]);
 }
 
 public function product_Id_searsh($productId)
 {
-  $product = Product::with('image','ratings.user','reviews')->where('id',$productId)->firstOrFail();
+  $product = Product::with('subcategory.category',
+        'image',
+        'user',
+        'ratings.user',
+        'reviews.user',
+  )
+  ->where('id',$productId)->firstOrFail();
   $rate=new RatingController();
    $rate_product=$rate-> getRate($productId);
   $views= $product->views;

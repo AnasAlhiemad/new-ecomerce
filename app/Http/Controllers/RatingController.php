@@ -38,19 +38,7 @@ class RatingController extends Controller
     public function getRate($id)
         {
             $average= Rating::where('product_id',$id)->avg('rate');
-            return response()->json([
-
-                'average' =>$average,
-             
-            ], 200);
-             /*      foreach($rate as $rate)
-            {
-            $avg=0;
-            $avg=$avg+$rate;
-            $avgrate=$avg/$user;
-            }
-*/
-//     $rate=Rating::with('rate') - > get( ) ; ;
+            return response()->json($average);
         }
 
 

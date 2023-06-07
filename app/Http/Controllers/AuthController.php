@@ -85,7 +85,7 @@ class AuthController extends Controller
     public function userProfile()
      {
         $user=User::where('id',Auth::id())
-        ->with('product.image','product.ratings','product.reviews')->get();
+        ->with('product.subcategory.category','product.image','product.ratings.user','product.reviews.user')->get();
         return response()->json($user);
         //return response()->json(auth()->user()->with('user.product.image')->get());
       }
