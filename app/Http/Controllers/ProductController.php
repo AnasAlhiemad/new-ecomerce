@@ -83,7 +83,12 @@ $images=$request->list_images;
 
 
  $sub_isExist=true;
+ $image=Product::find($product->id)->Image;
 return response()->json([
+    'category'=> $category,
+   'sub_category'=> $sub_category,
+   'product'=>$product,
+   'images'=> $image,
     'message' => 'success store',
                          ]);
     }
@@ -103,8 +108,10 @@ $new_sub_category=SubCategory::create([
     'subcategory_id'=>$new_sub_category->id,
     'views'=> 0,
     'description'=>$request->description,
-    'count'=>$request->description,
+    'count'=>$request->count,
                              ]);
+
+
 
 
 $images=$request->list_images;
@@ -123,8 +130,14 @@ $i1=0;$i2=0;
                              ]);
 $i1++;
     }
+    $image=Product::find($product->id)->Image;
+
 return response()->json([
-  'message' => 'success store',
+    'category'=> $category,
+    'sub_category'=> $new_sub_category,
+    'product'=>$product,
+    'images'=>$image,
+    'message' => 'success store',
                          ]);
 // }
 // }
@@ -168,7 +181,12 @@ $image=Image::Create([
 $i1++;
 
  }
+ $image=Product::find($product->id)->Image;
 return response()->json([
+    'category'=>$new_category,
+    'sub_category'=>$new_sub_category,
+    'product'=>$product,
+    'images'=>$image,
     'message' => 'success store',
                         ]);
 

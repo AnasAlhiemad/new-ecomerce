@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
@@ -34,7 +35,7 @@ class CategoryController extends Controller
         $Category = Category::with('subcategory.products.image',
         'subcategory.products.reviews',
         'subcategory.products.ratings',
-        'subcategory.products.user')->get();
+        'subcategory.products.user')->where('user_id',1)->get();
         return response()->json($Category);
      }
     public function searsh_Category($name)
