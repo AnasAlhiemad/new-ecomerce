@@ -226,7 +226,7 @@ class ProductController extends Controller
         $messag='success store';
         return response()->json([$product,$messag]);
         // return response()->json([
-        //             'category'=>$new_category,
+        //             'category'=>$new_category,//
         //             'sub_category'=>$new_sub_category,
         //             'product'=>$product,
         //             'images'=>$image,
