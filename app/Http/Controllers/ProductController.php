@@ -102,6 +102,7 @@ class ProductController extends Controller
                 ->with('subcategory.category','image','ratings.user','reviews.user')->get();
                 return response()->json([$user,$product,
                 'message' => 'success store']);
+                // this is new return 
                 // $image=Product::find($product->id)->Image;
                 // return response()->json([
                 //     'category'=> $category,
