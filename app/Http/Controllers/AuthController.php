@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Image;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 use App\Mail\SendCodePasswordConfirmation;
 use App\Models\ResetCodePassword;
 use Validator;
@@ -84,10 +85,19 @@ class AuthController extends Controller
 
     public function userProfile()
      {
-        $user=User::where('id',Auth::id())
+        $user=User::where('id',Auth::id())//->get();
         ->with('product.subcategory.category','product.image','product.ratings.user','product.reviews.user')->get();
         return response()->json($user);
+      //   $user1=DB::table('users')
+      //   ->join('products','products.user_id','=','users.id')
+      //   ->join('sub_categories','sub_categories.id','=','products.subcategory_id')
+      //   ->select(
+      //   'products.product_name','products.price_product',
+      //   'products.views','products.description','products.count','sub_categories.sub_category')
+      //   ->where('users.id','=',Auth::id())->get();
+      //   return response()->json([$user,$user1]);
         //return response()->json(auth()->user()->with('user.product.image')->get());
+         //'users.id','users.name','users.email','users.number'
       }
     public function userAccunt($id)
      {
