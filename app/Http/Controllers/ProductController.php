@@ -100,9 +100,9 @@ class ProductController extends Controller
                 $sub_isExist=true;
                 $product=Product::where('id',$product->id)
                 ->with('subcategory.category','image','ratings.user','reviews.user')->get();
-                return response()->json([$user,$product,
-                'message' => 'success store']);
-                // this is new return 
+                $messag='success store';
+                return response()->json([$product,$messag]);
+                // this is new return
                 // $image=Product::find($product->id)->Image;
                 // return response()->json([
                 //     'category'=> $category,
@@ -156,10 +156,11 @@ class ProductController extends Controller
             }
 
 
+
             $product=Product::where('id',$product->id)
             ->with('subcategory.category','image','ratings.user','reviews.user')->get();
-            return response()->json([$user,$product,
-            'message' => 'success store']);
+            $messag='success store';
+            return response()->json([$product,$messag]);
 
             // $image=Product::find($product->id)->Image;
             // return response()->json([
@@ -222,8 +223,8 @@ class ProductController extends Controller
         //$image=Product::find($product->id)->Image;//->get();
         $product=Product::where('id',$product->id)
         ->with('subcategory.category','image','ratings.user','reviews.user')->get();
-        return response()->json([$user,$product,
-        'message' => 'success store']);
+        $messag='success store';
+        return response()->json([$product,$messag]);
         // return response()->json([
         //             'category'=>$new_category,
         //             'sub_category'=>$new_sub_category,
