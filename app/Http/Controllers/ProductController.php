@@ -324,23 +324,23 @@ class ProductController extends Controller
 
 
 
-        $images=$request->list_images;
-        $input=[];
-        $i1=0;$i2=0;
-        foreach ($images as $image2)
-        {
-            $image1=$image2['image'];
-            $image_name=time().$image1->getClientOriginalName();
-            $image1->move(public_path('upload'),$image_name);
-            $path="upload/$image_name";
-            $input[$i1]=$path;
-            $data= Product::find($productId)->Image()->update([
-            'image'=>$input[$i1],
-            'Product_id'=>$productId,
-                                                            ]);
-             $i1++;
+        // $images=$request->list_images;
+        // $input=[];
+        // $i1=0;$i2=0;
+        // foreach ($images as $image2)
+        // {
+        //     $image1=$image2['image'];
+        //     $image_name=time().$image1->getClientOriginalName();
+        //     $image1->move(public_path('upload'),$image_name);
+        //     $path="upload/$image_name";
+        //     $input[$i1]=$path;
+        //     $data= Product::find($productId)->Image()->update([
+        //     'image'=>$input[$i1],
+        //     'Product_id'=>$productId,
+        //                                                     ]);
+        //      $i1++;
 
-        }
+        // }
             return response()->json(['message'=> 'done']);
 
     }
