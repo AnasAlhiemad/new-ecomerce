@@ -78,6 +78,27 @@ class AuthController extends Controller
       return response()->json(['message' => 'User successfully signed out']);
        }
 
+
+
+       public function UpdateProfile(Request $request,$userId)
+       {
+               $validator = Validator::make($request->all(), [
+                'name' => 'required|string|between:2,100',
+                'number' => 'required|string|min:10',
+                                                           ]);
+           if ($validator->fails())
+           {
+               return response()->json($validator->errors()->toJson(), 400);
+           }
+
+
+           $user= User::find($userId)->update([
+            'name' => $request->name,
+            'number' => $request->number,
+                                                   ]);
+
+         return response()->json(['message'=> 'done']);
+       }
     public function refresh()
      {
         return $this->createNewToken(auth()->refresh());

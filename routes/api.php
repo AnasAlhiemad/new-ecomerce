@@ -37,6 +37,7 @@ use App\Http\Controllers\ReviewController;
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
     Route::get('/userAccunt/{id}', [AuthController::class, 'userAccunt']);
+    Route::post('/updateProfile/{userId}', [AuthController::class, 'UpdateProfile']);
 
               ##############PRODUCT#######################
     Route::post('/addproduct',[ProductController::class,'add_product']);

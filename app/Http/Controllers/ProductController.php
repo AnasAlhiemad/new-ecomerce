@@ -361,7 +361,9 @@ class ProductController extends Controller
     public function getImage($productId)
     {
         $image=Product::find($productId)->with('image')->get();
-        return response()->json($image);
+                if (Auth::guard('api')->check()) {
+            $userID = auth('api')->user()->getKey();}
+        return response()->json($userID);
     }
 
 }

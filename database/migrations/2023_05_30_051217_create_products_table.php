@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration
             $table->double('price_product');
             $table->integer('views')->default(0)->min(0);
             $table->string('description');
-            $table->integer('count');
+            $table->string('count');
              ### relation_user ###
              $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             //      ### relation_cart ###
