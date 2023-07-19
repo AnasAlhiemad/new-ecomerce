@@ -4,7 +4,7 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\Favorite;
-use App\Models\Cart_Order;
+use App\Models\CartOrder;
 use App\Models\SubCategory;
 use App\Models\Image;
 use App\Models\Rating;

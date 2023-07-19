@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\CartOrder;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Product;
-use App\Models\Cart_Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -14,24 +14,28 @@ class CartOrderController extends Controller
     {
         $this->middleware('auth:api');
     }
-    public function addOrder($product_id)
+    public function addOrder(Request $request,$product_id)
     {
         $user_cart = auth()->user()->cart;
         $user_cart_id=$user_cart->id;
-        $order=Cart_Order::create([
-            'cart_id'=>$user_cart->id,
-            'quantity'=>1,
-            'product_id'=>$product_id,
-
-        ]);
         $product=Product::where('id',$product_id)->firstOrFail();
-        $total_Price= $user_cart->total;
-        $Newtotal_Price=$total_Price + $product->price_product;
-        $cart=Cart::find($user_cart_id);
-        $cart->update([
-            'total'=>$Newtotal_Price,
-        ]);
+        $sub_Price= $user_cart->sub_total;
+        $Newsubtotal_Price=$sub_Price + ($product->price_product*$request->quantity);
+        $order=CartOrder::create([
+            'cart_id'=>$user_cart->id,
+            'quantity'=> $request->quantity,
+            'product_id'=>$product_id,
+            'sub_total'=>$Newsubtotal_Price,
 
-return response()->json(['message'=>'done added to your cart']);
+        ]);
+        // $product=Product::where('id',$product_id)->firstOrFail();
+        // $sub_Price= $user_cart->sub_total;
+        // $Newsubtotal_Price=$sub_Price + ($product->price_product*$order->quantity);
+        // $cart=Cart::find($user_cart_id);
+        // $cart->update([
+        //     'sub_total'=>$Newsubtotal_Price,
+        // ]);
+
+     return response()->json(['message'=>'done added to your cart']);
     }
 }

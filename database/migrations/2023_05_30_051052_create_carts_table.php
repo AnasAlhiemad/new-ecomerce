@@ -17,7 +17,7 @@ return new class extends Migration
            $table->string('my_cart');
                          ##### relation_user ###
            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-           $table->integer('total')->nullable();
+           //$table->integer('sub_total')->nullable();
            $table->timestamps();
         });
     }

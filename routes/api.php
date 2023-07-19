@@ -9,6 +9,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CartOrderController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\CodeCheck;
 use App\Http\Controllers\ForgotPassword;
@@ -84,3 +85,6 @@ use App\Http\Controllers\ReviewController;
     Route::post('/update/{id}',[ReviewController::class,'update']);
     Route::post('/delete/{id}',[ReviewController::class,'delete']);
     Route::get('/getReview/{id}',[ReviewController::class,'getReview']);
+            #################### Order ###################
+
+    Route::post('/addorder',[OrderController::class,'addOrder']);

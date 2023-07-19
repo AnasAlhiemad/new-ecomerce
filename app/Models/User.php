@@ -3,9 +3,10 @@ namespace App\Models;
 use App\Models\Product;
 use App\Models\Image;
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Rating;
 use App\Models\Category;
-use App\Models\Cart_Order;
+use App\Models\CartOrder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -76,5 +77,9 @@ class User extends Authenticatable implements JWTSubject
     public function reviews()
     {
         return $this->hasMany(Review::class,'user_id');
+    }
+    public function order()
+    {
+        return $this->hasMany(Order::class,'recip_id');
     }
 }
