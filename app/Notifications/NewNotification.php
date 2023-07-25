@@ -43,11 +43,14 @@ class NewNotification extends Notification
          return (new MailMessage)
                     ->subject('Online Store')
                     ->line($this->content)
-                    ->line('Is product available?')
-                    ->action('Confirm Order', route('order.confirm', ['orderId' => $this->orderId]))
-                    ->action('Cancel Order', route('order.cancel', ['orderId' => $this->orderId]))
+                    ->line('Is product available pleas communicate with him as soon as possible?')
+                    //->action('not confirmation', url('/'))
+                    //->action('not', url('/'))
+                     ->line('if  product not available')
+                    ->action(' not Confirm Order', url([OrderController::class,'addOrder']))
+                    //->action('Cancel Order', url('order.cancel', ['orderId' => $this->orderId]))
                     ->line('if not available')
-                    ->action('not confirmation', url('/roytes'))
+                    //->action('not confirmation', url('/'))
                     ->line('Thank you for using our application!');
     }
 

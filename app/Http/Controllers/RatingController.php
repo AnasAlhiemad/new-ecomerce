@@ -16,26 +16,35 @@ class RatingController extends Controller
 
     public function addrating(Request $request,$id)
     {
-        $validator =validator::make($request->all(),[
-            'rate'=>'required|integer',
-                                               ]);
-          if($validator->fails())
-          {
-           return response()->json($validator->errors()->toJson(), 422);
-          }
+        // $validator =validator::make($request->all(),[
+        //     'rate'=>'required|integer',
+        //     'reviews'=>'required|string'
+        //                                        ]);
+        //   if($validator->fails())
+        //   {
+        //    return response()->json($validator->errors()->toJson(), 422);
+        //   }
 
+     //   return $request->rate;
     $rate=Rating::create([
      'rate' => $request->rate,
+     'reviews' => $request->reviews,
      'product_id'=> $id,
      'user_id'=>Auth::id(),
                          ]);
      return response()->json([
         'success' => '1',
-        'message' => 'Rated successfully',
+        'message' => 'Rated and reviews successfully',
         ], 200);
     }
 
     public function getRate($id)
+        {
+           // $average= Rating::where('product_id',$id)->avg('rate');
+            $review= Rating::with('user')->where('product_id',$id)->get();
+            return response()->json($review);
+        }
+    public function getaverage($id)
         {
             $average= Rating::where('product_id',$id)->avg('rate');
             return response()->json($average);

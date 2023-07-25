@@ -72,6 +72,9 @@ use App\Http\Controllers\ReviewController;
     Route::post('/CreateCart',[CartController::class,'CreateCart']);
     Route::get('/getCart',[CartController::class,'getCart']);
     Route::post('/addOrder/{product_id}',[CartOrderController::class,'addOrder']);
+    Route::post('/deleteCart/{cart_id}',[CartController::class,'deleteCart']);
+    Route::post('/deleteitem/{item_id}',[CartController::class,'deleteitem']);
+    Route::post('/Updatecart/{item_id}',[CartController::class,'Updatecart']);
 
                 ###################  Rating    ###############
     Route::post('/addrating/{id}',[RatingController::class,'addrating']);

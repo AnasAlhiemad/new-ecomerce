@@ -29,7 +29,7 @@ class Cart extends Model
     }
     public function cart_order()
     {
-        return $this->hasMany(CartOrder::class, 'cart_id');
+        return $this->hasMany(CartOrder::class,'cart_id');
     }
     public function order()
     {

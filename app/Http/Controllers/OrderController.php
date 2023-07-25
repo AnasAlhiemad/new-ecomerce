@@ -21,7 +21,7 @@ class OrderController extends Controller
     }
     public function addOrder()
     {
-      $id=Auth::id();
+      $id=Auth::user();
       $purchaser=User::where('id',$id)->firstOrFail();
       $purchaser_name=$purchaser->name;
       $purchaser_number=$purchaser->number;
@@ -44,8 +44,12 @@ class OrderController extends Controller
             want to buy your product{{$product_name}} with quantity:{{$quantity}}";
             $notification = new NewNotification($line);
             $user->notify($notification);
+            $notification1 = new NewNotification();
+            $id->notify($notification1);
       }
-
+    return response()->json(['message'=>'done send your ordre']);
+     }
+     public function cancelorder(){
 
      }
     }

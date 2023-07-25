@@ -279,20 +279,21 @@ class ProductController extends Controller
 
     public function product_Id_searsh($productId)
     {
-            $product = Product::with('subcategory.category',
+            $product = Product::with(
                     'image',
+                    'subcategory.category',
                     'user',
                     'ratings.user',
-                    'reviews.user',
+
             )
             ->where('id',$productId)->firstOrFail();
             $rate=new RatingController();
-            $rate_product=$rate-> getRate($productId);
+            $rate_product=$rate-> getaverage($productId);
             $views= $product->views;
             $product->update([
                 'views' => $views + 1,
                             ]);
-            return response()->json([$product, $rate_product]);
+            return response()->json([$product]);
                     //with('product.image')->
     }
 

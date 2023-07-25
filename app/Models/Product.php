@@ -39,7 +39,7 @@ class Product extends Model
     }
 
     public function cart_order() {
-        return $this->hasMany(cart__orders::class, 'product_id');
+        return $this->hasMany(CartOrder::class, 'product_id');
     }
     public function favorite(){
         return $this->hasMany(Favorite::class,'product_id');

@@ -14,6 +14,7 @@ class Rating extends Model
     [
         'user_id',
         'product_id',
+        'reviews',
         'rate',
       //  'review',
     ];
