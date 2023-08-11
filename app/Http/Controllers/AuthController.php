@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Image;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use App\Mail\SendCodePasswordConfirmation;
@@ -34,6 +35,11 @@ class AuthController extends Controller
         {
            return response()->json(['error' => 'Unauthorized'], 401);
          }
+         $cart=Cart::create([
+            'my_cart'=>'my_cart',
+            'user_id'=>Auth::id(),
+            'sub_total'=>0,
+        ]);
         return response()->json([
           "user" => auth()->user(),
           "_token" => $token,
@@ -62,10 +68,9 @@ class AuthController extends Controller
      $codeData = ResetCodePassword::create([
       'code'=>$code,
       'email'=>$request->email]);
-
         // Send email to user
-     Mail::to($request->email)
-      ->send(new SendCodePasswordConfirmation($codeData->code));
+      Mail::to($request->email)
+       ->send(new SendCodePasswordConfirmation($codeData->code));
      return response()->json([
         'message' => 'User successfully registered',
         'user' => $user

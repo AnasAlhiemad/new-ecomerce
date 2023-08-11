@@ -293,7 +293,7 @@ class ProductController extends Controller
             $product->update([
                 'views' => $views + 1,
                             ]);
-            return response()->json([$product]);
+            return response()->json([$product,$rate_product]);
                     //with('product.image')->
     }
 

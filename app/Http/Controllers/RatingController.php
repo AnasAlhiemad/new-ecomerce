@@ -54,8 +54,9 @@ class RatingController extends Controller
     public function update(Request $request,$id)
     {
 
-         $rate=Rating::where('product_id',$id)->update([
+         $rate=Rating::where('id',$id)->update([
             'rate' => $request->rate,
+            'reviews' =>$request->reviews,
          ]);
 
         return response()->json([
@@ -80,7 +81,7 @@ class RatingController extends Controller
     }
     public function delete($id)
     {
-        $rate=Rating::where('product_id',$id)->delete();
+        $rate=Rating::where('id',$id)->delete();
         return response()->json([
             'success' => '1',
             'message'=>'rate removed successfully',

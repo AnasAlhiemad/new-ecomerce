@@ -79,9 +79,9 @@ use App\Http\Controllers\ReviewController;
                 ###################  Rating    ###############
     Route::post('/addrating/{id}',[RatingController::class,'addrating']);
     Route::get('/getRate/{id}',[RatingController::class,'getRate']);
-    Route::post('/update/{id}',[RatingController::class,'update']);
+    Route::post('/updaterate/{id}',[RatingController::class,'update']);
     Route::get('/myratings',[RatingController::class,'myratings']);
-    Route::post('/delete/{id}',[RatingController::class,'delete']);
+    Route::post('/deleterate/{id}',[RatingController::class,'delete']);
 
             ###################  Rating    ###############
     Route::post('/addreview/{id}',[ReviewController::class,'addreview']);
@@ -91,3 +91,4 @@ use App\Http\Controllers\ReviewController;
             #################### Order ###################
 
     Route::post('/addorder',[OrderController::class,'addOrder']);
+    Route::get('/getnotification',[OrderController::class,'getnotification']);

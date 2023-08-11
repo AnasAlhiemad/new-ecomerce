@@ -10,13 +10,14 @@ use Illuminate\Notifications\Notification;
 class NewNotification1 extends Notification
 {
     use Queueable;
+    protected $content;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($content)
     {
-
+        $this->content =$content;
     }
 
     /**
@@ -35,16 +36,14 @@ class NewNotification1 extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
+                    ->subject('Online Store')
+                    ->line($this->content)
                     ->line('if product is available,the owner will contact as soon as possible')
                    // ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
+
     public function toArray(object $notifiable): array
     {
         return [
