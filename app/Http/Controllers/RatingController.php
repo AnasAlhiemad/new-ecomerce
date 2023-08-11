@@ -13,7 +13,10 @@ use App\Http\Controllers\Model;
 
 class RatingController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function addrating(Request $request,$id)
     {
         // $validator =validator::make($request->all(),[
