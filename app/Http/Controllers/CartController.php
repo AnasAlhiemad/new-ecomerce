@@ -34,7 +34,7 @@ public function CreateCart(Request $request)
 
 }
 public function getCart(){
-    $cart=Cart::with('cart_order.product')->where('user_id',Auth::id())->get();
+    $cart=Cart::with('cart_order.product.image')->where('user_id',Auth::id())->get();
 
     return response()->json($cart);
 }

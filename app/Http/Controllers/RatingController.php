@@ -49,8 +49,12 @@ class RatingController extends Controller
         }
     public function getaverage($id)
         {
+        
             $average= Rating::where('product_id',$id)->avg('rate');
-            return response()->json($average);
+            if ($average==0) {
+                return response()->json(0.0);
+            }else{
+            return response()->json($average);}
         }
 
 
